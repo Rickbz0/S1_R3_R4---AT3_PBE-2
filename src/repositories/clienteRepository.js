@@ -49,7 +49,10 @@ const clienteRepository = {
     },
 
     selecionar: async () => {
-        const sql = ` SELECT Id, Nome, CPF, DataCad FROM clientes`;
+        const sql = ` SELECT * 
+                        FROM clientes AS C
+                        INNER JOIN enderecos AS e ON c.id = e.idCliente
+                        INNER JOIN telefones AS t ON c.id = t.idCliente`;
         const [rows] = await connection.execute(sql);
         return rows;
     },
